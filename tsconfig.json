@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["vue-expense-tracker-ts/src/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
