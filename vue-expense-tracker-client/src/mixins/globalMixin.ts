@@ -42,7 +42,7 @@ export default {
          */
         formatDate(value : number, format : string = 'YYYY-MM-DD') {
             if (value) {
-                return dayjs.utc(value).local().format(format)
+                return (<any>dayjs).utc(value).local().format(format)
             }
             return null
         },
