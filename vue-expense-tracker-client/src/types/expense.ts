@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
-export interface BaseExpense {   
+export interface Expense { 
+    _id: string     
     trxDate: string
     trxMonth?: number
     trxYear?: number
@@ -10,17 +11,11 @@ export interface BaseExpense {
     subcategoryName?: string
     amount: number
     description: string
-}
-
-export interface Expense extends BaseExpense {
-    _id: string   
     importId?: string
 }
 
-export interface FormExpense extends BaseExpense {
-    _id?: string
-}
-
+export type NewExpense = Omit<Expense, "_id" | "importId">
+    
 export interface ExpenseTimeseries {
     categoryId: string | null
     categoryName: string | null

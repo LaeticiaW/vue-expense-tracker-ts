@@ -68,7 +68,7 @@
     import CategoryService from '@/services/category'
     import dayjs from 'dayjs'
     import _ from 'lodash-core'
-    import { VForm, FormExpense, CategorySelectItem, Category, Subcategory, CategoryMap } from '@/types/index'
+    import { VForm, Expense, NewExpense, CategorySelectItem, Category, Subcategory, CategoryMap } from '@/types/index'
 
     export default Vue.extend({
         name: 'ExpenseDialog',
@@ -90,7 +90,7 @@
                 isFormValid: false as boolean,
                 isCreate: true as boolean,
                 trxDateMenu: false as boolean,
-                tempExpense: this.expense as FormExpense,
+                tempExpense: '_id' in this.expense ? this.expense as Expense : this.expense as NewExpense,
                 categories: [] as Category[],
                 subcategories: [] as Subcategory[],
                 categoryMap: {} as CategoryMap,
@@ -164,6 +164,7 @@
          * On create, retrieve the categories data
          */
         created() : void {
+            console.log('Expense:', this.expense, 'Type:', typeof this.expense)
             // Make a deep copy of the expense object for the form
             this.tempExpense = _.cloneDeep(this.expense)
             if (this.tempExpense.trxDate) {

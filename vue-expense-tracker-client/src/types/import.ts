@@ -22,7 +22,7 @@ export interface ImportExpense {
     amount: number | string
     categoryId?: string | null
     description: string
-    importId?: Date
+    importId?: string
     subcategoryId: string | null
     trxDate: string
 }

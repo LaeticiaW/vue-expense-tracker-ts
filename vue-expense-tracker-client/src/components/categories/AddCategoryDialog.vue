@@ -38,7 +38,7 @@
 <script lang="ts">
     import Vue from 'vue'
     import CategoryService from '@/services/category'
-    import { VForm, FormCategory } from '@/types/index'
+    import { VForm, NewCategory } from '@/types/index'
 
     export default Vue.extend({
         name: 'AddCategoryDialog',
@@ -67,7 +67,7 @@
             addCategory() {
                 this.dialogMessage = ''
                 this.isCategoryUnique = true
-                const category : FormCategory = {                    
+                const category : NewCategory = {                    
                     name: this.categoryName,
                     subcategories: []
                 }

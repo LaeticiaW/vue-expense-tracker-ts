@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import _ from 'lodash-core'
-import { Category, FormCategory, Subcategory, CategorySelectItem, CategoryMap, SubcategoryMap } from '@/types/index.js'
+import { Category, NewCategory, Subcategory, CategorySelectItem, CategoryMap, SubcategoryMap } from '@/types/index.js'
 
 export default {
     categoryUrl: 'http://localhost:3000/category/',
@@ -45,7 +45,7 @@ export default {
      * Create a new categories
      * @param {object} categories - categories object to create
      */
-    createCategory(category : FormCategory) {
+    createCategory(category : NewCategory) {
         return axios({
             url: this.categoryUrl,
             method: 'POST',

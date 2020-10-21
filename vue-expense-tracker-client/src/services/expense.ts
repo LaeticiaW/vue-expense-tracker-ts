@@ -2,7 +2,7 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import numeral from 'numeral'
 import _ from 'lodash-core'
-import { Expense, FormExpense, ExpenseSummary, ExpenseSummaryRaw, ExpenseFilter, 
+import { Expense, NewExpense, ExpenseSummary, ExpenseSummaryRaw, ExpenseFilter, 
     ExpenseTimeseries, Series, ImportDetails, ImportExpense } from '@/types/index.ts'
 
 export default {
@@ -32,18 +32,19 @@ export default {
      * Save an expense, either via create or update
      * @param {object} expense - expense object to save
      */
-    saveExpense(expense : FormExpense) : Promise<Expense> {
-        if (expense._id === undefined) {
-            return this.createExpense(expense)
+    saveExpense(expense : Expense | NewExpense) : Promise<Expense> {        
+        if ('_id' in expense) {
+            return this.updateExpense(<Expense>expense)            
         }
-        return this.updateExpense(expense)
+        return this.createExpense(<NewExpense>expense)
+        
     },
 
     /*
      * Create a new expense
      * @param {object} expense - expense object to save
      */
-    createExpense(expense : FormExpense) : Promise<Expense> {
+    createExpense(expense : NewExpense) : Promise<Expense> {
         return axios({
             url: this.expenseUrl,
             method: 'POST',
@@ -58,7 +59,7 @@ export default {
      * Update an existing expense
      * @param {object} expense - expense object to update
      */
-    updateExpense(expense : FormExpense) : Promise<Expense> {
+    updateExpense(expense : Expense) : Promise<Expense> {
         return axios({
             url: this.expenseUrl + expense._id,
             method: 'PUT',
@@ -212,11 +213,8 @@ export default {
      * @param {object} importDetails - details of the import
      */
     importExpenses(expenses : ImportExpense[], importDetails : ImportDetails) {
-        const importId : Date = new Date()
-
         // Normalize the trxDate to 'YYYY-MM-DD' and remove $ from amount
-        expenses.forEach((exp : ImportExpense) => {
-            exp.importId = importId
+        expenses.forEach((exp : ImportExpense) => {          
             exp.trxDate = dayjs(exp.trxDate, importDetails.dateFormat).format('YYYY-MM-DD')
 
             if (typeof exp.amount === 'string' && exp.amount.substr(0, 1) === '$') {

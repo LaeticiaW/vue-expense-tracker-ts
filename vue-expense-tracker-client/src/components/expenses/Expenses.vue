@@ -73,7 +73,7 @@
         data() {
             return {
                 showExpenseDialog: false as boolean,
-                selectedExpense: {} as Expense,
+                selectedExpense: {} as Partial<Expense>,
                 newExpense: {} as Expense,
                 sortBy: 'trxDate' as string,
                 sortDesc: true as boolean,
@@ -165,8 +165,7 @@
              */
             showAddExpenseDialog() : void {
                 this.showExpenseDialog = true
-                this.selectedExpense = {
-                    _id: '',                   
+                this.selectedExpense = {                                    
                     trxDate: '',
                     categoryId: '',
                     subcategoryId: '',

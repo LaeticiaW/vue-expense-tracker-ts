@@ -1,15 +1,14 @@
 import Vue from 'vue'
 
-export interface FormCategory {
+export interface Category {
+    _id: string
     name: string
     subcategories: Subcategory[]   
+    treeId?: number
+    parentTreeId?: number
 }
 
-export interface Category extends FormCategory {
-    _id: string
-    treeId?: number
-    parentTreeId?: number    
-}
+export type NewCategory = Omit<Category, "_id" | "treeId" | "parentTreeId">
 
 export interface CategorySelectItem {
     _id: string | undefined
