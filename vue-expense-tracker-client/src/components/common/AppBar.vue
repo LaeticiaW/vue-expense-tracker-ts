@@ -88,4 +88,7 @@
         z-index: 5;
         padding-top: 64px;
     }
+    .v-list-item__title {
+        font-size: 0.875em !important;
+    }
 </style>
